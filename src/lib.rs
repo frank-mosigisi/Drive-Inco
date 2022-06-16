@@ -14,7 +14,7 @@ pub struct Contract {
     cab_allocation: HashMap<u8, Client>,
 }
 /*
-    This is all the client's info which includes cab driver used, destination and also cost of the trip in NEAR
+    This is all the client's info which includes cab driver used, destination and also the cost of the trip in NEAR
 */
 #[near_bindgen]
 #[derive(Default, BorshDeserialize, BorshSerialize, Clone)]
@@ -36,7 +36,7 @@ impl Default for Contract {
 
 #[near_bindgen]
 impl Contract {
-    //Welcome message and available contract functions available for use
+    //This call gives the welcome message and available contract functions for use
     pub fn welcome(&self) {
         info::help();
     }
@@ -45,7 +45,7 @@ impl Contract {
         info::destinations();
     }
     /*
-        Order function a client calls to book a cab ride. The client gives his desination and cab driver.
+        An order function a client calls to book a cab ride. The client gives and cab driver and cab number they want.
         This information is used to initialize a client object
     */
     pub fn order(&mut self, cab_number: u8, driver_choice: String) {
@@ -93,15 +93,16 @@ impl Contract {
         let tokens_paid = to_near(tokens);
         log!("cost: {}, token near {}", charge, tokens_paid);
         // if checks to compare the tokens recieved to the expected fare charges
-        if tokens_paid < charge {
-            return "Insufficient cab fare paid.kindly pay the correct amount".to_string()
+        if charge - tokens_paid > 0.0{
+            let message = format!("Insufficient cab fare paid.kindly pay the correct amount which is {} Near.", (charge - tokens_paid));
+            return message.to_string() 
         }
         if tokens_paid - charge > 0.0 {
-            let log_message = format!("You paid more by {} Near. Thanks for the tip", (tokens_paid - charge));
+            let log_message = format!("You paid more by {} Near. Thanks for the tip.", (tokens_paid - charge));
             return log_message.to_string()    
         }
         else {
-            return "Payement received succesfully. Have a nice day and book a ride with us next time".to_string()
+            return "Payement received succesfully. Have a nice day and book a ride with us next time.".to_string()
         }
     }
 }
@@ -126,7 +127,7 @@ mod tests {
 
     fn get_context(input: Vec<u8>, is_view: bool) -> VMContext {
         VMContext {
-            current_account_id: "maryjane.mememan.testnet".to_string(),
+            current_account_id: "kikijane.mememan.testnet".to_string(),
             signer_account_id: "ink_near".to_string(),
             signer_account_pk: vec![0, 1, 2],
             predecessor_account_id: "mememan.testnet".to_string(),
@@ -148,14 +149,14 @@ mod tests {
     #[test]
     fn paid_correct_amount() {
         let mut context = get_context(vec![], false);
-        context.attached_deposit = 2000000000000000000000000; 
+        context.attached_deposit = 3000000000000000000000000; 
         context.is_view = false;
         testing_env!(context);
 
         let mut contract: Contract = Contract::default();
-        contract.order(2, "mary".to_string());
+        contract.order(2, "kiki".to_string());
         let response = contract.payement(2);
-        assert_eq!("Payement received succesfully. Have a nice day and book a ride with us next time".to_string(), response)
+        assert_eq!("Payement received succesfully. Have a nice day and book a ride with us next time.".to_string(), response)
     }
 
     #[test]
@@ -166,27 +167,27 @@ mod tests {
         testing_env!(context);
 
         let mut contract: Contract = Contract::default();
-        contract.order(2, "mary".to_string());
+        contract.order(2, "kiki".to_string());
         let response = contract.payement(2);
-        assert_eq!("You paid more by 2.9999995 Near. Thanks for the tip".to_string(), response)
+        assert_eq!("You paid more by 1.9999995 Near. Thanks for the tip.".to_string(), response)
     }
 
     #[test]
     fn pay_less_amount() {
         let mut context = get_context(vec![], false);
-        context.attached_deposit = 0000000000000000000000000; 
+        context.attached_deposit = 0; 
         context.is_view = false;
         testing_env!(context);
 
         let mut contract: Contract = Contract::default();
-        contract.order(2, "mary".to_string());
+        contract.order(2, "kiki".to_string());
         let response = contract.payement(2);
-        assert_eq!("Insufficient cab fare paid.kindly pay the correct amount".to_string(), response)
+        assert_eq!("Insufficient cab fare paid.kindly pay the correct amount which is 3 Near.".to_string(), response)
     }
     #[test]
-    fn test_hash_map() {
+    fn test_hash() {
         let contract: Contract = Contract::default();
-        let bools = contract.drivers_available.contains_key(&"mary".to_string());
+        let bools = contract.drivers_available.contains_key(&"kiki".to_string());
         log!("{}", bools);
         assert_eq!(true, bools)
     }
