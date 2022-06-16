@@ -25,7 +25,7 @@ pub fn help() {
     env::log_str("	
         Avalaible functions are:	
         welcome: 'welcome'	
-        destinations: 'destinations'	
+        destinations: 'destination'	
         order: 'order {\"cab_number\", \"driver_choice\"}'	
         charges: 'charges {\"cab_number\"}'	
         payement: 'payement {\"cab_number\"}'	

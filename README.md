@@ -24,7 +24,7 @@ The smart contract is currently deployed and initialized on:
 
     near call maryjane.mememan.testnet order '{"cab_number": 3 , "driver_choice": "kiki"}' --account-id YOUR_ACCOUNT_ID_HERE
 
-### Ask for your fare after trip ;
+### Ask for your trip charges ;
 
     near view maryjane.mememan.testnet charges '{"cab_number": 3 }' --account-id YOUR_ACCOUNT_ID_HERE
 
