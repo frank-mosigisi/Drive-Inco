@@ -2,7 +2,7 @@
 ## About 
 
 This is a cab service contract where clients can book and pay for a cab using Near tokens.They can check available cabs at the moment, book a cab, travel and also pay for their trip when it is done.
-This can all be done securely and anoymously by leveraging on the characteristics of the Near Blockchain.
+This can all be done securely and anonymously by leveraging on the characteristics of the Near Blockchain.
 
 The smart contract is currently deployed and initialized on:
 
