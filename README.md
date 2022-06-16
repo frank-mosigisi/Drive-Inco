@@ -1,23 +1,38 @@
-# Rust Smart Contract Template
+# DriveInco Cab Services Smart Contract
 
-## Getting started
+The smart contract is currently deployed and initialized on:
 
-To get started with this template:
+    maryjane.mememan.testnet
 
-1. Click the "Use this template" button to create a new repo based on this template
-2. Update line 2 of `Cargo.toml` with your project name
-3. Update line 4 of `Cargo.toml` with your project author names
-4. Set up the [prerequisites](https://github.com/near/near-sdk-rs#pre-requisites)
-5. Begin writing your smart contract in `src/lib.rs`
-6. Test the contract 
 
-    `cargo test -- --nocapture`
+### Create a new account;
 
-8. Build the contract
+    near deploy --account-id maryjane.mememan.testnet --wasmFile target/wasm32-unknown-unknown/release/rust_template.wasm
 
-    `RUSTFLAGS='-C link-arg=-s' cargo build --target wasm32-unknown-unknown --release`
+### Getting instructions for interacting with the smart Contract
 
-**Get more info at:**
+    near view maryjane.mememan.testnet welcome --account-id mememan.testnet
 
-* [Rust Smart Contract Quick Start](https://docs.near.org/docs/develop/contracts/rust/intro)
-* [Rust SDK Book](https://www.near-sdk.io/)
+### Calling for the available routes ;
+
+    near call maryjane.mememan.testnet destination --account-id mememan.testnet
+
+### Making an cab order ;
+
+    near call maryjane.mememan.testnet order '{"cab_number": 2 , "driver_choice": "mary"}' --account-id mememan.testnet
+
+### Ask for your fare after trip ;
+
+    near view maryjane.mememan.testnet charges '{"cab_number": 2 }' --account-id mememan.testnet
+
+### Making a higher payment ;
+
+    near call maryjane.mememan.testnet payement '{"cab_number": 2 }' --account-id mememan.testnet --deposit 5
+
+### Making the exact payment ;
+
+    near call maryjane.mememan.testnet payement '{"cab_number": 2 }' --account-id mememan.testnet --deposit 2
+
+### Making a lesser payment ;
+
+    near call maryjane.mememan.testnet payement '{"cab_number": 2}' --account-id mememan.testnet --deposit 1
