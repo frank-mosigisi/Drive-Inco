@@ -14,31 +14,31 @@ The smart contract is currently deployed and initialized on:
 
 ### Getting instructions for interacting with the smart Contract
 
-    near view maryjane.mememan.testnet welcome --account-id mememan.testnet
+    near view maryjane.mememan.testnet welcome --account-id YOUR_ACCOUNT_ID_HERE
 
 ### Calling for the available routes ;
 
-    near call maryjane.mememan.testnet destination --account-id mememan.testnet
+    near call maryjane.mememan.testnet destination --account-id YOUR_ACCOUNT_ID_HERE
 
 ### Making an cab order ;
 
-    near call maryjane.mememan.testnet order '{"cab_number": 3 , "driver_choice": "kiki"}' --account-id mememan.testnet
+    near call maryjane.mememan.testnet order '{"cab_number": 3 , "driver_choice": "kiki"}' --account-id YOUR_ACCOUNT_ID_HERE
 
 ### Ask for your fare after trip ;
 
-    near view maryjane.mememan.testnet charges '{"cab_number": 3 }' --account-id mememan.testnet
+    near view maryjane.mememan.testnet charges '{"cab_number": 3 }' --account-id YOUR_ACCOUNT_ID_HERE
 
 ### Making a higher payment ;
 
-    near call maryjane.mememan.testnet payement '{"cab_number": 3 }' --account-id mememan.testnet --deposit 5
+    near call maryjane.mememan.testnet payement '{"cab_number": 3 }' --account-id YOUR_ACCOUNT_ID_HERE --deposit 5
 
 ### Making the exact payment ;
 
-    near call maryjane.mememan.testnet payement '{"cab_number": 3 }' --account-id mememan.testnet --deposit 3
+    near call maryjane.mememan.testnet payement '{"cab_number": 3 }' --account-id YOUR_ACCOUNT_ID_HERE --deposit 3
 
 ### Making a lesser payment ;
 
-    near call maryjane.mememan.testnet payement '{"cab_number": 3}' --account-id mememan.testnet --deposit 1
+    near call maryjane.mememan.testnet payement '{"cab_number": 3}' --account-id YOUR_ACCOUNT_ID_HERE --deposit 1
 
 Built with the [Near Rust Template ](https://github.com/near/near-sdk-rs#pre-requisites)
 
